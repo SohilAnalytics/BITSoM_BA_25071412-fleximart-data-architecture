@@ -4,11 +4,16 @@ import re
 import os
 
 # --- Configuration ---
+# Get current script directory to find relative paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Navigate up one level to find 'data' folder
+DATA_DIR = os.path.join(BASE_DIR, '..', 'data')
 DB_NAME = "fleximart.db"
+
 DATA_FILES = {
-    "customers": "customers_raw.csv",
-    "products": "products_raw.csv",
-    "sales": "sales_raw.csv"
+    "customers": os.path.join(DATA_DIR, "customers_raw.csv"),
+    "products": os.path.join(DATA_DIR, "products_raw.csv"),
+    "sales": os.path.join(DATA_DIR, "sales_raw.csv")
 }
 
 def clean_phone(phone):
@@ -227,4 +232,5 @@ if __name__ == "__main__":
         load_data(clean_cust, clean_prod, clean_sales)
         print("\nETL Pipeline Completed Successfully!")
     except Exception as e:
+
         print(f"\nETL Pipeline Failed: {e}")
